@@ -3,10 +3,16 @@ import { IconSettings, IconTrash, IconMenu2 } from '@tabler/icons-react';
 import { ActionIcon } from '@mantine/core';
 export default function OptionsMenu({
   onClone,
-  onDelete
+  onDelete,
+  onNotify,
+  onActivate,
+  onDeactivate
 }: {
   onClone: () => void;
   onDelete: () => void;
+  onNotify: () => void;
+  onActivate: () => void;
+  onDeactivate: () => void;
 }) {
   return (
     <Menu shadow="md" width={200}>
@@ -19,16 +25,33 @@ export default function OptionsMenu({
       <Menu.Dropdown>
         <Menu.Item
           onClick={onClone}
-          leftSection={<IconSettings style={{ width: rem(14), height: rem(14) }} />}
-        >
+          leftSection={<IconSettings style={{ width: rem(14), height: rem(14) }} />}>
           Clone
+        </Menu.Item>
+
+        <Menu.Item
+          onClick={onNotify}
+          leftSection={<IconSettings style={{ width: rem(14), height: rem(14) }} />}>
+          Notify
+        </Menu.Item>
+
+        <Menu.Item
+          onClick={onActivate}
+          leftSection={<IconSettings style={{ width: rem(14), height: rem(14) }} />}>
+          Activate
+        </Menu.Item>
+
+        <Menu.Item
+          color="red"
+          onClick={onDeactivate}
+          leftSection={<IconTrash style={{ width: rem(14), height: rem(14) }} />}>
+          Deactivate
         </Menu.Item>
 
         <Menu.Item
           color="red"
           onClick={onDelete}
-          leftSection={<IconTrash style={{ width: rem(14), height: rem(14) }} />}
-        >
+          leftSection={<IconTrash style={{ width: rem(14), height: rem(14) }} />}>
           Delete
         </Menu.Item>
       </Menu.Dropdown>

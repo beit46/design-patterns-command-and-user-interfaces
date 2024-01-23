@@ -1,0 +1,7 @@
+.rowActive {
+    background-color: var(--mantine-color-white);
+}
+
+.rowInactive {
+    background-color: var(--mantine-color-red-0);
+}

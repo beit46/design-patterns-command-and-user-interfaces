@@ -1,20 +1,11 @@
 import { useState } from 'react';
-import { Title } from '@mantine/core';
+import { AppShell, Title } from '@mantine/core';
 import classes from './App.module.css';
 import { TableSorted } from './TableSorted/TableSorted';
-import { AppShell } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { User, Users } from './model/user.model';
 import { defaultUsers } from './model/users.default';
-const createUser = ({
-  name,
-  company,
-  email
-}: {
-  name: string;
-  company: string;
-  email: string;
-}) => ({ name, company, email, id: crypto.randomUUID() });
+import { createUser } from './createUser';
 
 export default function App() {
   const [users, setUsers] = useState<Users>(defaultUsers());
@@ -22,6 +13,33 @@ export default function App() {
 
   const handleDelete = (userId: string) => {
     setUsers((oldUsers) => oldUsers.filter((u) => u.id !== userId));
+  };
+  const handleNotify = (userId: string) => {
+    const user: User | undefined = users.find((u) => u.id === userId);
+    if (user) {
+      user.isNotified = true;
+      setUsers((oldUsers) => [...oldUsers.filter((u) => u.id !== userId), user]);
+      setTimeout(() => {
+        user.isNotified = false;
+        setUsers((oldUsers) => [...oldUsers.filter((u) => u.id !== userId), user]);
+      }, 3000);
+    }
+  };
+
+  const handleActivate = (userId: string) => {
+    const user: User | undefined = users.find((u) => u.id === userId);
+    if (user) {
+      user.isActive = true;
+      setUsers((oldUsers) => [...oldUsers.filter((u) => u.id !== userId), user]);
+    }
+  };
+
+  const handleDeactivate = (userId: string) => {
+    const user: User | undefined = users.find((u) => u.id === userId);
+    if (user) {
+      user.isActive = false;
+      setUsers((oldUsers) => [...oldUsers.filter((u) => u.id !== userId), user]);
+    }
   };
 
   const handleClone = (userId: string) => {
@@ -36,8 +54,7 @@ export default function App() {
         breakpoint: 'sm',
         collapsed: { mobile: !opened }
       }}
-      padding="md"
-    >
+      padding="md">
       <AppShell.Navbar>
         <nav className={classes.navbar}>
           <div className={classes.wrapper}>
@@ -55,7 +72,14 @@ export default function App() {
       </AppShell.Navbar>
 
       <AppShell.Main>
-        <TableSorted users={users} onClone={handleClone} onDelete={handleDelete} />
+        <TableSorted
+          users={users}
+          onClone={handleClone}
+          onDelete={handleDelete}
+          onNotify={handleNotify}
+          onActivate={handleActivate}
+          onDeactivate={handleDeactivate}
+        />
       </AppShell.Main>
     </AppShell>
   );

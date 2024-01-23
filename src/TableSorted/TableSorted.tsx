@@ -1,24 +1,42 @@
+import cx from 'clsx';
 import { ScrollArea, Table, Text } from '@mantine/core';
 import OptionsMenu from './OptionsMenu';
 import { Th } from './Th';
 import { Users } from '../model/user.model';
+import { IconMessage } from '@tabler/icons-react';
+import classes from './TableSelection.module.css';
 
 export function TableSorted({
   users,
   onClone,
-  onDelete
+  onDelete,
+  onNotify,
+  onActivate,
+  onDeactivate
 }: {
   users: Users;
   onClone: (user: string) => void;
   onDelete: (user: string) => void;
+  onNotify: (user: string) => void;
+  onActivate: (user: string) => void;
+  onDeactivate: (user: string) => void;
 }) {
   const rows = users.map((row) => (
-    <Table.Tr key={row.id}>
+    <Table.Tr
+      key={row.id}
+      className={cx({ [classes.rowActive]: row.isActive, [classes.rowInactive]: !row.isActive })}>
       <Table.Td>{row.name}</Table.Td>
       <Table.Td>{row.email}</Table.Td>
       <Table.Td>{row.company}</Table.Td>
+      <Table.Td>{row.isNotified ? <IconMessage /> : null}</Table.Td>
       <Table.Td>
-        <OptionsMenu onClone={() => onClone(row.id)} onDelete={() => onDelete(row.id)} />
+        <OptionsMenu
+          onClone={() => onClone(row.id)}
+          onNotify={() => onNotify(row.id)}
+          onActivate={() => onActivate(row.id)}
+          onDeactivate={() => onDeactivate(row.id)}
+          onDelete={() => onDelete(row.id)}
+        />
       </Table.Td>
     </Table.Tr>
   ));
@@ -36,6 +54,9 @@ export function TableSorted({
             </Th>
             <Th sorted={false} reversed={false} onSort={() => {}}>
               Company
+            </Th>
+            <Th sorted={false} reversed={false} onSort={() => {}}>
+              Notified
             </Th>
           </Table.Tr>
         </Table.Tbody>
