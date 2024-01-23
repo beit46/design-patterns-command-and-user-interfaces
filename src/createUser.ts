@@ -9,7 +9,7 @@ export const createUser: ({
   company: string;
   email: string;
 }) => User = ({ name, company, email }) => ({
-  name,
+  name: name + ' Copy (1)',
   company,
   email,
   id: crypto.randomUUID(),
