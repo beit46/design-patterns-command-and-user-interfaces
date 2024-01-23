@@ -25,28 +25,6 @@ export default function OptionsMenu({
         </Menu.Item>
 
         <Menu.Item
-          onClick={onClone}
-          leftSection={<IconSettings style={{ width: rem(14), height: rem(14) }} />}
-        >
-          Notify
-        </Menu.Item>
-
-        <Menu.Item
-          onClick={onClone}
-          leftSection={<IconSettings style={{ width: rem(14), height: rem(14) }} />}
-        >
-          Activate
-        </Menu.Item>
-
-        <Menu.Item
-          color="red"
-          onClick={onDelete}
-          leftSection={<IconTrash style={{ width: rem(14), height: rem(14) }} />}
-        >
-          Deactivate
-        </Menu.Item>
-
-        <Menu.Item
           color="red"
           onClick={onDelete}
           leftSection={<IconTrash style={{ width: rem(14), height: rem(14) }} />}
