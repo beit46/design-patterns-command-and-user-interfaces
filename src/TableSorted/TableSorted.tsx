@@ -1,5 +1,4 @@
-import {rem, ScrollArea, Table, Text, TextInput,} from '@mantine/core';
-import {IconSearch} from '@tabler/icons-react';
+import {ScrollArea, Table, Text} from '@mantine/core';
 import OptionsMenu from "./OptionsMenu";
 import {Th} from "./Th";
 import {Users} from "../model/user.model";
@@ -26,13 +25,6 @@ export function TableSorted({ users, onClone, onDelete }: { users: Users, onClon
 
     return (
         <ScrollArea>
-            <TextInput
-                placeholder="Search by any field"
-                mb="md"
-                leftSection={<IconSearch style={{ width: rem(16), height: rem(16) }} stroke={1.5} />}
-                value={''}
-                onChange={()=> {}}
-            />
             <Table horizontalSpacing="md" verticalSpacing="xs" miw={700} layout="fixed">
                 <Table.Tbody>
                     <Table.Tr>

@@ -5,34 +5,15 @@ import {TableSorted} from "./TableSorted/TableSorted";
 import { AppShell } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import {User, Users} from "./model/user.model";
-
-const linksMockdata = [
-    'My Cool App',
-];
-
+import {defaultUsers} from "./model/users.default";
 const createUser = ({name, company, email}:{name: string, company: string, email: string}) => ({name, company, email, id: crypto.randomUUID()})
 
 export default function App() {
-    const [active, setActive] = useState('Releases');
-    const [users, setUsers]  = useState<Users>([
-        {
-            id: crypto.randomUUID(),
-            name: 'Athena Weissnat',
-            company: 'Little - Rippin',
-            email: 'Elouise.Prohaska@yahoo.com',
-        },
-        {
-            id: crypto.randomUUID(),
-            name: 'Enrico Bottani',
-            company: 'Bloombastic',
-            email: 'el@beit.rock',
-        },
-    ])
+    const [users, setUsers]  = useState<Users>(defaultUsers())
     const [opened] = useDisclosure();
 
 
     const handleDelete = (userId: string) => {
-        console.log('on delete')
         setUsers((oldUsers) => oldUsers.filter(u => u.id !== userId))
     }
 
@@ -41,21 +22,6 @@ export default function App() {
         if (user)
             setUsers((oldUsers) => [...oldUsers, createUser(user)])
     }
-
-    const links = linksMockdata.map((link) => (
-        <a
-            className={classes.link}
-            data-active={active === link || undefined}
-            href="#"
-            onClick={(event) => {
-                event.preventDefault();
-                setActive(link)
-            }}
-            key={link}
-        >
-            {link}
-        </a>
-    ));
 
     return (
         <AppShell
@@ -73,10 +39,17 @@ export default function App() {
                     <div className={classes.wrapper}>
                         <div className={classes.main}>
                             <Title order={4} className={classes.title}>
-                                {active}
+                                'My Cool App'
                             </Title>
 
-                            {links}
+                            <a
+                                className={classes.link}
+                                data-active={true}
+                                href="#"
+                                key={'My Cool App'}
+                            >
+                                { 'My Cool App'}
+                            </a>
                         </div>
                     </div>
                 </nav>
